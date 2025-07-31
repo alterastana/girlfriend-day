@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Eternal Love 💖</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e6);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    .falling-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .heart {
+      position: absolute;
+      color: pink;
+      animation: fall 10s linear infinite;
+      opacity: 0.8;
+      will-change: transform;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: linear-gradient(135deg, #fff9fb, #fff0f3);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,192,203,0.3);
+      transform: scale(0.8);
+      transition: all 0.4s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+
+    .typing {
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+      border-right: 2px solid #f472b6;
+      font-size: 1.5rem;
+      color: #db2777;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #f472b6; }
+    }
+
+    .nav-button {
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(244, 114, 182, 0.4);
+      transition: all 0.3s ease;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(244, 114, 182, 0.6);
+    }
+
+    .love-letter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .love-letter.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .letter-container {
+      background: linear-gradient(135deg, #fff9fb, #fff0f3);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      max-width: 95%;
+      width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,192,203,0.3);
+      transform: translateY(20px);
+      transition: transform 0.5s ease;
+      margin: 20px 0;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Custom scrollbar for letter container */
+    .letter-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .letter-container::-webkit-scrollbar-track {
+      background: rgba(255, 192, 203, 0.2);
+      border-radius: 10px;
+    }
+
+    .letter-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(#f9a8d4, #f472b6);
+      border-radius: 10px;
+    }
+
+    .letter-container::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(#f472b6, #db2777);
+    }
+
+    .love-letter.show .letter-container {
+      transform: translateY(0);
+    }
+
+    .poetic-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #555;
+      text-align: left;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .poetic-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .floating-hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-heart {
+      position: absolute;
+      opacity: 0.6;
+      animation: float 15s linear infinite;
+      will-change: transform;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-100px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    .gratitude-box {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left: 4px solid #f472b6;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gratitude-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(244, 114, 182, 0.2);
+    }
+
+    .gratitude-title {
+      color: #f472b6;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .gratitude-text {
+      color: #666;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .anniversary-badge {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #f9a8d4, #f472b6);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+      z-index: 100;
+      animation: pulse 2s infinite;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      border-radius: 2px;
+    }
+    
+    .photo-button {
+      background: linear-gradient(to right, #f472b6, #db2777);
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
+      transition: all 0.3s ease;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .photo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(219, 39, 119, 0.6);
+    }
+
+    .poetic-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      text-align: center;
+      margin: 2rem 0;
+      font-style: italic;
+      position: relative;
+    }
+
+    .poetic-quote:before, .poetic-quote:after {
+      content: '"';
+      font-size: 2rem;
+      color: #f472b6;
+      line-height: 0;
+      position: relative;
+      top: 0.5rem;
+    }
+
+    .poetic-quote:before {
+      margin-right: 0.5rem;
+    }
+
+    .poetic-quote:after {
+      margin-left: 0.5rem;
+    }
+
+    /* Music Player Styles */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .music-player:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .music-toggle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.4);
+    }
+
+    .music-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(244, 114, 182, 0.5);
+    }
+
+    .music-info {
+      font-family: 'Cormorant Garamond', serif;
+      color: #db2777;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* Sparkle Effect */
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10;
+      animation: sparkle 1.5s ease-out forwards;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #f472b6;
+      font-size: 14px;
+      opacity: 0.8;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+
+    .scroll-indicator-icon {
+      margin-top: 5px;
+      font-size: 20px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .typing {
+        font-size: 1.2rem;
+        white-space: normal;
+        animation: none;
+        border-right: none;
+      }
+      
+      .modal-content {
+        width: 90%;
+        padding: 1.5rem;
+      }
+      
+      .letter-container {
+        width: 90%;
+        padding: 1.2rem;
+        max-height: 85vh;
+      }
+      
+      .poetic-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      
+      .poetic-quote {
+        font-size: 1rem;
+      }
+      
+      .music-player {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 15px;
+      }
+      
+      .music-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .music-info {
+        font-size: 12px;
+      }
+      
+      .gratitude-box {
+        padding: 1rem;
+      }
+      
+      .gratitude-title {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .typing {
+        font-size: 1.1rem;
+      }
+      
+      .nav-button, .photo-button {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .music-player {
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        border-radius: 25px;
+      }
+      
+      .music-info {
+        display: none;
+      }
+      
+      .letter-container {
+        padding: 1rem;
+        max-height: 90vh;
+      }
+      
+      .poetic-text {
+        font-size: 0.9rem;
+      }
+      
+      .anniversary-badge {
+        top: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+
+      .scroll-indicator {
+        font-size: 12px;
+        bottom: 10px;
+      }
+
+      .scroll-indicator-icon {
+        font-size: 16px;
+      }
+    }
+    
+    /* Smooth animations */
+    .smooth-animate {
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      animation-fill-mode: both;
+    }
+    
+    /* Optimized animations */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- ❤️ Falling Hearts -->
+<div class="falling-hearts" id="hearts-container"></div>
+
+<!-- 🌸 Floating Hearts Background -->
+<div class="floating-hearts" id="floating-hearts"></div>
+
+<!-- 🎵 Music Player -->
+<div class="music-player" id="musicPlayer">
+  <div class="music-info">Playing: Maps in French 💖</div>
+  <button class="music-toggle" id="musicToggle">🎵</button>
+  <audio id="bgMusic" loop>
+    <source src="Anthony Lazaro + Scott & Lila - Maps in French - Anthony Lazaro.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+
+
+
+
+<!-- Anniversary Badge -->
+<div class="anniversary-badge animate__animated animate__fadeInRight">
+  My Eternal Love 💖
+</div>
+
+<!-- 💌 Popup Modal -->
+<div id="secretModal" class="modal">
+  <div class="modal-content animate__animated animate__bounceIn">
+    <h2 class="text-2xl font-bold text-pink-600 mb-4" style="font-family: 'Playfair Display', serif;">💌 A Whisper to Your Heart</h2>
+    <p class="text-gray-700 mb-6" style="font-family: 'Cormorant Garamond', serif;">In the garden of my soul, you are the most exquisite bloom, cherished beyond measure.</p>
+    <button id="closeModalBtn" class="px-6 py-2 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-full shadow-lg hover:from-pink-500 hover:to-pink-600 transition-all duration-300 transform hover:scale-105" style="font-family: 'Playfair Display', serif;">
+      My Beloved 💕
+    </button>
+  </div>
+</div>
+
+<!-- 💖 Love Letter Popup -->
+<div id="loveLetter" class="love-letter">
+  <div class="letter-container">
+    <button id="closeLetterBtn" class="absolute top-4 right-4 text-pink-500 hover:text-pink-700 text-2xl">
+      ✕
+    </button>
+    <div class="text-center mb-6">
+      <span class="text-4xl text-pink-500 animate__animated animate__tada animate__infinite animate__slower">💕</span>
+      <h2 class="text-2xl font-bold text-pink-700 mt-4" id="letterTitle" style="font-family: 'Playfair Display', serif;">My Ode to You</h2>
+      <p class="text-sm text-pink-400 mt-1" style="font-family: 'Cormorant Garamond', serif;">An Eternal Devotion</p>
+    </div>
+    
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara1">
+        My dearest love, in the vast tapestry of existence, you are the golden thread that gives meaning to all. I cherish every facet of your being - the radiance of your spirit, the music of your laughter, the tenderness of your touch. You are my sanctuary in this tempestuous world.
+      </p>
+    </div>
+    
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara2">
+        When weariness weighed upon my soul like leaden chains, you were the gentle hand that lifted me. In my darkest hours, when faith in love had withered, you came as spring rain to my parched heart. You accepted my fractured pieces and showed me wholeness.
+      </p>
+    </div>
+    
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara3">
+        You are the living proof that goodness still graces this earth. My compass in life's labyrinth, the fire that warms my winters, the star by which I navigate existence. I love you beyond the measure of words - you are my eternal sunrise, my reason for being.
+      </p>
+    </div>
+
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara4">
+        Meeting you is the greatest gift life has given me, and no words could ever fully express the depth of my gratitude. I love you sayang truly, deeply, endlessly. With every breath, I ache to share not just this life, but every lifetime to come, with you. ❤❤❤❤❤❤💍💍💍💍💍
+      </p>
+    </div>
+
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara5">
+        Your smile is my favorite sunrise, your voice my favorite melody. Each day with you is a blessing I never take for granted. I promise to cherish you, to stand by you through all of life's storms, and to love you more with each passing day.
+      </p>
+    </div>
+
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara6">
+        You've taught me the true meaning of love - not as a fleeting emotion but as a steadfast choice, a daily commitment to honor and cherish another soul. In your eyes, I've found my home, and in your heart, I've found my peace.
+      </p>
+    </div>
+
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara7">
+        As the moon faithfully follows the earth, so too does my heart follow yours. No distance could diminish what I feel, no time could erode this bond we share. You are my always and forever, my today and all my tomorrows.
+      </p>
+    </div>
+
+    <div class="paragraph-container">
+      <p class="poetic-text" id="letterPara8">
+        I vow to be your shelter in the storm, your laughter in joy, your comfort in sorrow. To celebrate your triumphs as my own, to share your burdens as my privilege. My love for you is as constant as the northern star, as endless as the sky.
+      </p>
+    </div>
+    
+    <div class="mt-8 flex justify-center">
+      <span class="text-2xl animate__animated animate__pulse animate__infinite">✨</span>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll to read more</span>
+      <div class="scroll-indicator-icon">👇</div>
+    </div>
+  </div>
+</div>
+
+<!-- 💖 Hero Section -->
+<section class="min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center" data-aos="zoom-in">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="typing text-3xl md:text-4xl lg:text-5xl font-bold text-pink-700 mb-6" style="font-family: 'Playfair Display', serif;"> Happy National Girlfriend Day My Beloved Soul</h1>
+    <div class="poetic-quote animate__animated animate__fadeIn animate__delay-1s" id="randomQuote"></div>
+    
+    <div class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-pink-200 shadow-lg bg-gradient-to-br from-pink-300 to-rose-300 flex items-center justify-center text-6xl animate__animated animate__pulse animate__infinite animate__slower">
+      💖
+    </div>
+    
+    <button id="openModalBtn" class="mt-6 px-8 py-3 bg-gradient-to-r from-pink-400 to-rose-400 text-white font-medium rounded-full shadow-lg hover:from-pink-500 hover:to-rose-500 transition-all duration-300 transform hover:scale-110 animate__animated animate__pulse animate__infinite" style="font-family: 'Playfair Display', serif;">
+      A Message For You 💌
+    </button>
+  </div>
+</section>
+
+<!-- 💕 Gratitude Section -->
+<section class="py-16 px-6 bg-white">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="section-title text-3xl font-bold text-center text-pink-700 mb-12" data-aos="fade-up">The Light You Bring - I Love Everthing About You</h2>
+    
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="gratitude-box" data-aos="fade-right">
+        <div class="gratitude-title">🌸 Your Unfailing Presence</div>
+        <div class="gratitude-text">When shadows gathered about me, you stood as my steadfast lantern. Your constancy is the anchor that keeps my soul from drifting.</div>
+      </div>
+      
+      <div class="gratitude-box" data-aos="fade-left">
+        <div class="gratitude-title">💖 Your Healing Touch</div>
+        <div class="gratitude-text">With hands gentler than dawn's first light, you mended what was broken in me. Your love is the balm that soothes my ancient wounds.</div>
+      </div>
+      
+      <div class="gratitude-box" data-aos="fade-right">
+        <div class="gratitude-title">✨ Your Restorative Faith</div>
+        <div class="gratitude-text">When I had ceased to believe in love's redemption, you rekindled that sacred flame within my weary heart.</div>
+      </div>
+      
+      <div class="gratitude-box" data-aos="fade-left">
+        <div class="gratitude-title">🌹 Your Unconditional Acceptance</div>
+        <div class="gratitude-text">You embraced my imperfections as though they were virtues, loving me not despite my flaws but through them.</div>
+      </div>
+
+      <div class="gratitude-box" data-aos="fade-right">
+        <div class="gratitude-title">🧠 Your Wisdom</div>
+        <div class="gratitude-text">Your words carry the weight of truth and the softness of understanding, guiding me through life's complexities.</div>
+      </div>
+      
+      <div class="gratitude-box" data-aos="fade-left">
+        <div class="gratitude-title">🤗 Your Comforting Solace</div>
+        <div class="gratitude-text">In your arms, I find the peace that eludes me elsewhere. Your embrace is my sanctuary from the world's clamor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💘 What You Mean to Me -->
+<section class="py-16 px-6 bg-pink-50">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="section-title text-3xl font-bold text-center text-pink-700 mb-12" data-aos="fade-up">The Essence of My Devotion</h2>
+    
+    <div class="poetic-quote" data-aos="fade-up">
+      You are the reason my heart continues its rhythmic dance. Without you, life would be but a shadow of what it is - you color my world with hues I never knew existed.
+    </div>
+    
+    <div class="poetic-quote" data-aos="fade-up">
+      In your eyes, I found the reflection of my better self. You make me believe in goodness, in love, in the possibility of happiness in this fractured world.
+    </div>
+    
+    <div class="poetic-quote" data-aos="fade-up">
+      My purpose, my joy, my north star - you are all these and more. I love you not only for who you are but for who I become when I am with you.
+    </div>
+  </div>
+</section>
+
+<!-- 🌙 Footer with Navigation -->
+<footer class="py-12 px-6 text-center bg-pink-50">
+  <div class="max-w-2xl mx-auto" data-aos="fade-up">
+    <div class="mb-6">
+      <div class="w-24 h-24 rounded-full mx-auto border-4 border-pink-200 shadow-md bg-gradient-to-br from-pink-300 to-rose-300 flex items-center justify-center text-4xl">
+        💖
+      </div>
+    </div>
+    <p class="text-lg text-pink-700 mb-2" style="font-family: 'Playfair Display', serif;">I Long For You and I Have Been Waiting For You</p>
+    <p class="text-pink-600 italic mb-8" style="font-family: 'Cormorant Garamond', serif;">The One I Need - Savior Of My Life</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+      <button id="showLetterBtn" class="nav-button animate__animated animate__fadeIn">
+        Read My Love Letter 💌
+      </button>
+      <a href="fotobubub.html" class="photo-button animate__animated animate__fadeIn animate__delay-1s">
+       Pictures of You 📸
+      </a>
+    </div>
+    
+    <div class="flex justify-center space-x-4">
+      <span class="text-2xl animate__animated animate__bounce animate__infinite animate__slow">💖</span>
+      <span class="text-2xl animate__animated animate__bounce animate__infinite animate__slow animate__delay-1s">🌸</span>
+      <span class="text-2xl animate__animated animate__bounce animate__infinite animate__slow animate__delay-2s">✨</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  // Inisialisasi AOS
+  AOS.init({
+    duration: 800,
+    once: true,
+    easing: 'ease-out-quad'
+  });
+
+  const modal = document.getElementById('secretModal');
+  const openModalBtn = document.getElementById('openModalBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const loveLetter = document.getElementById('loveLetter');
+  const showLetterBtn = document.getElementById('showLetterBtn');
+  const closeLetterBtn = document.getElementById('closeLetterBtn');
+  
+
+  
+
+  function openModal() {
+    modal.classList.add('show');
+    try {
+      bgMusic.volume = 0.3;
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicToggle.textContent = '🔊';
+      }).catch(e => {
+        console.warn("Autoplay blocked:", e);
+        isPlaying = false;
+        musicToggle.textContent = '🔇';
+      });
+    } catch (e) {
+      console.log("Audio play failed:", e);
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+  }
+
+  function showLoveLetter() {
+    loveLetter.classList.add('show');
+    const paragraphs = document.querySelectorAll('.poetic-text');
+    paragraphs.forEach(p => p.classList.remove('visible'));
+    paragraphs.forEach((p, index) => {
+      setTimeout(() => {
+        p.classList.add('visible');
+      }, index * 300);
+    });
+    showLetterBtn.disabled = true;
+    showLetterBtn.classList.remove('hover:translateY(-2px)', 'hover:shadow-lg');
+    showLetterBtn.textContent = 'Letter Read 💖';
+  }
+
+  function closeLoveLetter() {
+    loveLetter.classList.remove('show');
+  }
+
+  // Music player functionality
+  const musicToggle = document.getElementById('musicToggle');
+  const bgMusic = document.getElementById('bgMusic');
+  const musicPlayer = document.getElementById('musicPlayer');
+  let isPlaying = false;
+
+  // Try to autoplay music (may be blocked by browser)
+  function attemptAutoplay() {
+    const playPromise = bgMusic.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        isPlaying = true;
+        musicToggle.textContent = '🔊';
+      })
+      .catch(error => {
+        isPlaying = false;
+        musicToggle.textContent = '🔇';
+      });
+    }
+  }
+
+  // On page load, try to play music after a short delay
+  setTimeout(attemptAutoplay, 1000);
+
+  // Toggle music play/pause
+  musicToggle.addEventListener('click', () => {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicToggle.textContent = '🔇';
+    } else {
+      bgMusic.play();
+      musicToggle.textContent = '🔊';
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Update music info based on current time
+  setInterval(() => {
+    if (isPlaying) {
+      const minutes = Math.floor(bgMusic.currentTime / 60);
+      const seconds = Math.floor(bgMusic.currentTime % 60).toString().padStart(2, '0');
+      document.querySelector('.music-info').textContent = `Playing: Love Song 💖 (${minutes}:${seconds})`;
+    }
+  }, 1000);
+
+
+
+  // Hati jatuh
+  const heartsContainer = document.getElementById('hearts-container');
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    heart.style.animationDelay = (Math.random() * 5) + "s";
+    heart.innerHTML = ["💖", "💗", "💓", "💘", "💝"][Math.floor(Math.random() * 5)];
+    heartsContainer.appendChild(heart);
+  }
+
+  // Hati melayang
+  const floatingHearts = document.getElementById('floating-hearts');
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = Math.random() * 100 + "vh";
+    heart.style.fontSize = (Math.random() * 30 + 20) + "px";
+    heart.style.animationDuration = (Math.random() * 10 + 10) + "s";
+    heart.style.animationDelay = (Math.random() * 5) + "s";
+    heart.innerHTML = ["💖", "💗", "💓", "💘", "💝"][Math.floor(Math.random() * 5)];
+    floatingHearts.appendChild(heart);
+  }
+
+  // Quotes acak
+  const quotes = [
+    "In your arms, I have found the home my wandering soul always sought.",
+    "Your love is the melody that makes my heart sing its sweetest song.",
+    "Like the moon to the tide, your presence moves the oceans of my being.",
+    "You are the poem I never knew how to write until you showed me the words.",
+    "In the gallery of my life, you are the masterpiece that gives meaning to all other art.",
+    "Your love fell upon me like spring rain upon parched earth - bringing life where there was none.",
+    "I loved you yesterday, I love you still - always have, always will.",
+    "You are my today and all of my tomorrows.",
+    "To the world you may be one person, but to me you are the world.",
+    "I would rather share one lifetime with you than face all the ages of this world alone."
+  ];
+  document.getElementById("randomQuote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+  // Sparkle effect
+  document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+      createSparkles(e.clientX, e.clientY);
+    }
+  });
+
+  function createSparkles(x, y) {
+    for (let i = 0; i < 10; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 20 + Math.random() * 30;
+      sparkle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+      sparkle.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+      sparkle.style.width = sparkle.style.height = (5 + Math.random() * 10) + 'px';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1500);
+    }
+  }
+
+  // Music Player draggable
+  let isDragging = false, offsetX, offsetY;
+  musicPlayer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - musicPlayer.getBoundingClientRect().left;
+    offsetY = e.clientY - musicPlayer.getBoundingClientRect().top;
+    musicPlayer.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    musicPlayer.style.left = `${e.clientX - offsetX}px`;
+    musicPlayer.style.top = `${e.clientY - offsetY}px`;
+  });
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    musicPlayer.style.cursor = 'grab';
+  });
+  musicPlayer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - musicPlayer.getBoundingClientRect().left;
+    offsetY = touch.clientY - musicPlayer.getBoundingClientRect().top;
+    e.preventDefault();
+  });
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    musicPlayer.style.left = `${touch.clientX - offsetX}px`;
+    musicPlayer.style.top = `${touch.clientY - offsetY}px`;
+    e.preventDefault();
+  });
+  document.addEventListener('touchend', () => isDragging = false);
+
+  // Typewriter effect untuk judul
+  const title = document.querySelector('.typing');
+  setTimeout(() => {
+    title.style.animation = 'none';
+    title.style.borderRight = 'none';
+  }, 3000);
+
+  // Optimisasi animasi
+  function optimizeAnimations() {
+    document.querySelectorAll('*').forEach(el => {
+      if (getComputedStyle(el).willChange === 'transform') {
+        el.style.backfaceVisibility = 'hidden';
+        el.style.perspective = '1000px';
+      }
+    });
+  }
+  window.addEventListener('load', optimizeAnimations);
+</script>

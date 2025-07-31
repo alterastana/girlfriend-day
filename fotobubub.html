@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Essence of You 💖</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff5f9, #ffebee);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+    }
+
+    .falling-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .heart {
+      position: absolute;
+      color: pink;
+      animation: fall 10s linear infinite;
+      opacity: 0.6;
+      will-change: transform;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    .photo-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .photo-frame {
+      position: relative;
+      border-radius: 24px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 8px 25px rgba(244, 114, 182, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border: 4px solid #f9a8d4;
+    }
+
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border: 3px dashed #f472b6;
+      border-radius: 26px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    .photo-frame:hover {
+      transform: translateY(-12px) rotate(3deg);
+      box-shadow: 0 20px 40px rgba(244, 114, 182, 0.35);
+    }
+
+    .photo-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .photo-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .photo-frame:hover .photo-content img {
+      transform: scale(1.12);
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(219, 39, 119, 0.85), transparent);
+      color: white;
+      padding: 24px 20px 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      font-family: 'Comic Neue', cursive;
+      z-index: 2;
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .photo-frame:hover .photo-caption {
+      transform: translateY(0);
+    }
+
+    .poetic-caption {
+      font-style: italic;
+      font-size: 1rem;
+      margin-top: 0.75rem;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-family: 'Playfair Display', serif;
+      color: #db2777;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+      font-size: 2.5rem;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      border-radius: 3px;
+    }
+
+    .nav-button {
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      color: white;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: 0 6px 15px rgba(244, 114, 182, 0.35);
+      transition: all 0.4s ease;
+      font-family: 'Comic Neue', cursive;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1.5px;
+      font-size: 1.1rem;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 10px 25px rgba(244, 114, 182, 0.45);
+    }
+
+    .sticker {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      z-index: 3;
+      opacity: 0.9;
+      transition: all 0.4s ease;
+      filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.2));
+    }
+
+    .photo-frame:hover .sticker {
+      transform: rotate(20deg) scale(1.15);
+    }
+
+    .sticker-1 {
+      top: -15px;
+      right: -15px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="Arial" font-size="50" fill="%23db2777" text-anchor="middle" dominant-baseline="middle">💕</text></svg>');
+    }
+
+    .sticker-2 {
+      bottom: -15px;
+      left: -15px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="Arial" font-size="50" fill="%23f472b6" text-anchor="middle" dominant-baseline="middle">🌸</text></svg>');
+    }
+
+    .sticker-3 {
+      top: -15px;
+      left: -15px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" font-family="Arial" font-size="50" fill="%23f9a8d4" text-anchor="middle" dominant-baseline="middle">✨</text></svg>');
+    }
+
+    .polaroid-effect {
+      background: white;
+      padding: 20px 20px 60px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transform: rotate(-2deg);
+      transition: all 0.4s ease;
+    }
+
+    .polaroid-effect:hover {
+      transform: rotate(2deg) scale(1.05);
+    }
+
+    .ribbon {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+      z-index: 4;
+    }
+
+    .ribbon-top-right {
+      top: 0;
+      right: 0;
+    }
+
+    .ribbon-top-right span {
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: #f472b6;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: #fff;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+      text-align: center;
+      right: -25px;
+      top: 30px;
+      transform: rotate(45deg);
+    }
+
+    .floating-bubbles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(244, 114, 182, 0.15);
+      border-radius: 50%;
+      animation: float 15s infinite ease-in;
+    }
+
+    @keyframes float {
+      0% {
+        bottom: -100px;
+        transform: translateX(0) rotate(0deg);
+      }
+      50% {
+        transform: translateX(100px) rotate(180deg);
+      }
+      100% {
+        bottom: 1080px;
+        transform: translateX(-100px) rotate(360deg);
+      }
+    }
+
+    /* Music Player Styles */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .music-player:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .music-toggle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #f9a8d4, #f472b6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.4);
+    }
+
+    .music-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(244, 114, 182, 0.5);
+    }
+
+    .music-info {
+      font-family: 'Comic Neue', cursive;
+      color: #db2777;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* Ribbon variations */
+    .ribbon-top-left {
+      top: 0;
+      left: 0;
+    }
+
+    .ribbon-top-left span {
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: #db2777;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: #fff;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+      text-align: center;
+      left: -25px;
+      top: 30px;
+      transform: rotate(-45deg);
+    }
+
+    .ribbon-bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+
+    .ribbon-bottom-right span {
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: #f9a8d4;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: #fff;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+      text-align: center;
+      right: -25px;
+      bottom: 30px;
+      transform: rotate(-45deg);
+    }
+
+    .ribbon-bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+
+    .ribbon-bottom-left span {
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: #ec4899;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: #fff;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+      text-align: center;
+      left: -25px;
+      bottom: 30px;
+      transform: rotate(45deg);
+    }
+
+    /* Ribbon text variations */
+    .ribbon-text-1 span { background-color: #f472b6; }
+    .ribbon-text-2 span { background-color: #db2777; }
+    .ribbon-text-3 span { background-color: #ec4899; }
+    .ribbon-text-4 span { background-color: #f9a8d4; }
+    .ribbon-text-5 span { background-color: #f43f5e; }
+
+    @media (max-width: 1024px) {
+      .photo-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        padding: 20px;
+      }
+      
+      .photo-frame {
+        padding: 16px;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .photo-container {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        padding: 16px;
+      }
+      
+      .photo-frame {
+        padding: 14px;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .section-title:after {
+        width: 70px;
+        bottom: -10px;
+      }
+
+      .sticker {
+        width: 50px;
+        height: 50px;
+      }
+
+      .nav-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+
+      .music-player {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 15px;
+      }
+
+      .music-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+
+      .music-info {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .photo-container {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+      
+      .photo-frame {
+        max-width: 100%;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .photo-caption {
+        padding: 20px 16px 16px;
+      }
+
+      .sticker {
+        width: 45px;
+        height: 45px;
+      }
+
+      .music-player {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 12px;
+      }
+
+      .music-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+
+      .music-info {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .photo-container {
+        padding: 12px;
+      }
+      
+      .photo-frame {
+        padding: 12px;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      .section-title:after {
+        width: 60px;
+        bottom: -8px;
+      }
+
+      .sticker {
+        width: 40px;
+        height: 40px;
+      }
+
+      .nav-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .music-player {
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        border-radius: 25px;
+      }
+
+      .music-info {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- ❤️ Falling Hearts -->
+<div class="falling-hearts" id="hearts-container"></div>
+
+<!-- 🌸 Floating Bubbles -->
+<div class="floating-bubbles" id="bubbles-container"></div>
+
+<!-- 🎵 Music Player -->
+<div class="music-player" id="musicPlayer">
+  <div class="music-info">Playing: Maps in French 💖</div>
+  <button class="music-toggle" id="musicToggle">🎵</button>
+  <audio id="bgMusic" loop>
+    <source src="Anthony Lazaro + Scott & Lila - Maps in French - Anthony Lazaro.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+<!-- 🏠 Navigation -->
+<nav class="py-5 px-6 bg-white shadow-sm sticky top-0 z-20">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="national.html" class="text-pink-600 font-semibold flex items-center" style="font-family: 'Comic Neue', cursive;">
+      <span class="text-3xl mr-3">💖</span>
+      <span class="text-2xl">My Sweetheart</span>
+    </a>
+    <div class="flex gap-4">
+      <a href="national.html" class="nav-button animate__animated animate__fadeIn animate__delay-1s">
+        💌 Back to Love Letter
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- 📸 Photo Gallery Section -->
+<section class="py-16 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12" data-aos="fade-up">
+      <h1 class="section-title mb-4">Your Precious Moments</h1>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg" style="font-family: 'Comic Neue', cursive;">
+        Every snapshot makes my heart skip a beat 💘
+      </p>
+    </div>
+    
+    <div class="photo-container">
+      <!-- Photo 1 -->
+      <div class="photo-frame" data-aos="fade-up">
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub2.jpg" alt="Your Radiance">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">My Sunshine</h3>
+            <p class="poetic-caption">You brighten even my cloudiest days</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 2 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="100">
+        
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub3.jpg" alt="Your Smile">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Giggly You</h3>
+            <p class="poetic-caption">That laugh that gives me butterflies</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 3 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="200">
+       
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub1.jpg" alt="Your Strength">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">My Superhero</h3>
+            <p class="poetic-caption">Stronger than any Marvel character</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 4 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="300">
+       
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub7.jpg" alt="Your Essence">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Cutie Pie</h3>
+            <p class="poetic-caption">The definition of adorable</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 5 -->
+      <div class="photo-frame" data-aos="fade-up">
+       
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub6.jpg" alt="Your Spirit">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Dreamy Eyes</h3>
+            <p class="poetic-caption">I could get lost in them forever</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 6 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="100">
+        
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub8.jpg" alt="Your Thoughtfulness">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Thoughtful You</h3>
+            <p class="poetic-caption">Always caring in the sweetest ways</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 7 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="200">
+     
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub5.jpg" alt="Your Wisdom">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Smart Cookie</h3>
+            <p class="poetic-caption">Brainy and beautiful - the perfect combo</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 8 -->
+      <div class="photo-frame" data-aos="fade-up" data-aos-delay="300">
+        
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub4.jpg" alt="Your Joy">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Joyful Soul</h3>
+            <p class="poetic-caption">Your happiness is my favorite thing</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Photo 9 -->
+      <div class="photo-frame" data-aos="fade-up">
+        
+        <div class="sticker sticker-1"></div>
+        <div class="sticker sticker-2"></div>
+        <div class="sticker sticker-3"></div>
+        <div class="photo-content polaroid-effect">
+          <img src="fotobubub1.jpg" alt="Your Playfulness">
+          <div class="photo-caption">
+            <h3 class="text-xl font-semibold">Elegant You</h3>
+            <p class="poetic-caption">The Beauty wonder I adore</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💌 Message Section -->
+<section class="py-16 px-6 bg-white">
+  <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+    <div class="text-pink-600 text-5xl mb-6 animate__animated animate__heartBeat animate__infinite animate__slower">💝</div>
+    <h2 class="text-3xl font-bold text-pink-700 mb-6" style="font-family: 'Comic Neue', cursive;">To My Favorite Person</h2>
+    <p class="text-gray-700 mb-8 text-xl" style="font-family: 'Comic Neue', cursive; font-style: italic; line-height: 1.6;">
+      "Every photo of you is like finding a rare Pokémon - absolutely precious and I wanna catch 'em all! You're the cutest thing my eyes have ever seen."
+    </p>
+    <a href="national.html" class="nav-button inline-block animate__animated animate__bounce animate__delay-2s">
+      💖 Back to Love Letter
+    </a>
+  </div>
+</section>
+
+<!-- 🌙 Footer -->
+<footer class="py-10 px-6 text-center bg-pink-50">
+  <div class="max-w-3xl mx-auto">
+    <p class="text-pink-600 italic mb-6 text-lg" style="font-family: 'Comic Neue', cursive;">
+      "You're the marshmallow in my hot chocolate - sweet, warm, and absolutely essential"
+    </p>
+    <div class="flex justify-center space-x-6">
+      <span class="text-3xl animate__animated animate__bounce animate__infinite animate__slow">💖</span>
+      <span class="text-3xl animate__animated animate__bounce animate__infinite animate__slow animate__delay-1s">🐰</span>
+      <span class="text-3xl animate__animated animate__bounce animate__infinite animate__slow animate__delay-2s">🍭</span>
+      <span class="text-3xl animate__animated animate__bounce animate__infinite animate__slow animate__delay-3s">🌸</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 🔮 Script -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  // Initialize AOS animation
+  AOS.init({
+    duration: 800,
+    once: true,
+    easing: 'ease-out-quad'
+  });
+
+  // Create falling hearts
+  const heartsContainer = document.getElementById('hearts-container');
+  const heartEmojis = ["💖", "💗", "💓", "💘", "💝", "🐰", "🌸", "🍭", "🧁", "🐻", "🌟", "🌠"];
+  
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 24 + 16) + "px";
+    heart.style.animationDuration = (Math.random() * 10 + 10) + "s";
+    heart.style.animationDelay = (Math.random() * 8) + "s";
+    heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    heartsContainer.appendChild(heart);
+  }
+
+  // Create floating bubbles
+  const bubblesContainer = document.getElementById('bubbles-container');
+  for (let i = 0; i < 15; i++) {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    const size = Math.random() * 100 + 50;
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+    bubble.style.left = Math.random() * 100 + 'vw';
+    bubble.style.animationDuration = (Math.random() * 20 + 15) + 's';
+    bubble.style.animationDelay = (Math.random() * 10) + 's';
+    bubble.style.opacity = Math.random() * 0.4 + 0.1;
+    bubblesContainer.appendChild(bubble);
+  }
+
+  // Add playful animation to photo frames on hover
+  document.querySelectorAll('.photo-frame').forEach(frame => {
+    frame.addEventListener('mouseenter', () => {
+      gsap.to(frame, {
+        rotation: Math.random() * 8 - 4,
+        y: -15,
+        duration: 0.6,
+        ease: "elastic.out(1, 0.5)"
+      });
+      gsap.to(frame.querySelectorAll('.sticker'), {
+        rotation: Math.random() * 60 - 30,
+        duration: 0.8,
+        ease: "back.out(2)"
+      });
+    });
+    frame.addEventListener('mouseleave', () => {
+      gsap.to(frame, {
+        rotation: 0,
+        y: 0,
+        duration: 0.8,
+        ease: "back.out(1.7)"
+      });
+      gsap.to(frame.querySelectorAll('.sticker'), {
+        rotation: 0,
+        duration: 1,
+        ease: "elastic.out(1, 0.5)"
+      });
+    });
+  });
+
+  // Music player functionality
+  const musicToggle = document.getElementById('musicToggle');
+  const bgMusic = document.getElementById('bgMusic');
+  const musicPlayer = document.getElementById('musicPlayer');
+  let isPlaying = false;
+
+  // Try to autoplay music (may be blocked by browser)
+  function attemptAutoplay() {
+    const playPromise = bgMusic.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        isPlaying = true;
+        musicToggle.textContent = '🔊';
+      })
+      .catch(error => {
+        isPlaying = false;
+        musicToggle.textContent = '🔇';
+      });
+    }
+  }
+
+  // On page load, try to play music after a short delay
+  setTimeout(attemptAutoplay, 1000);
+
+  // Toggle music play/pause
+  musicToggle.addEventListener('click', () => {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicToggle.textContent = '🔇';
+    } else {
+      bgMusic.play();
+      musicToggle.textContent = '🔊';
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Update music info based on current time
+  setInterval(() => {
+    if (isPlaying) {
+      const minutes = Math.floor(bgMusic.currentTime / 60);
+      const seconds = Math.floor(bgMusic.currentTime % 60).toString().padStart(2, '0');
+      document.querySelector('.music-info').textContent = `Playing: Love Song 💖 (${minutes}:${seconds})`;
+    }
+  }, 1000);
+
+  // Make music player draggable
+  let isDragging = false;
+  let offsetX, offsetY;
+
+  musicPlayer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - musicPlayer.getBoundingClientRect().left;
+    offsetY = e.clientY - musicPlayer.getBoundingClientRect().top;
+    musicPlayer.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    
+    const x = e.clientX - offsetX;
+    const y = e.clientY - offsetY;
+    
+    musicPlayer.style.left = `${x}px`;
+    musicPlayer.style.top = `${y}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    musicPlayer.style.cursor = 'grab';
+  });
+
+  // Touch support for mobile
+  musicPlayer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - musicPlayer.getBoundingClientRect().left;
+    offsetY = touch.clientY - musicPlayer.getBoundingClientRect().top;
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    const x = touch.clientX - offsetX;
+    const y = touch.clientY - offsetY;
+    
+    musicPlayer.style.left = `${x}px`;
+    musicPlayer.style.top = `${y}px`;
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+</script>
+</body>
+</html>
