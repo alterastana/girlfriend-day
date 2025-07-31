@@ -755,111 +755,65 @@
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  // Inisialisasi AOS
-  AOS.init({
-    duration: 800,
-    once: true,
-    easing: 'ease-out-quad'
-  });
+// Initialize AOS animation library
+AOS.init({
+  duration: 800,
+  once: true,
+  easing: 'ease-out-quad'
+});
 
-  const modal = document.getElementById('secretModal');
-  const openModalBtn = document.getElementById('openModalBtn');
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  const loveLetter = document.getElementById('loveLetter');
-  const showLetterBtn = document.getElementById('showLetterBtn');
-  const closeLetterBtn = document.getElementById('closeLetterBtn');
+// DOM Elements
+const modal = document.getElementById('secretModal');
+const openModalBtn = document.getElementById('openModalBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const loveLetter = document.getElementById('loveLetter');
+const showLetterBtn = document.getElementById('showLetterBtn');
+const closeLetterBtn = document.getElementById('closeLetterBtn');
+const randomQuote = document.getElementById('randomQuote');
+
+// Event Listeners
+openModalBtn.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+showLetterBtn.addEventListener('click', showLoveLetter);
+closeLetterBtn.addEventListener('click', closeLoveLetter);
+
+// Modal Functions
+function openModal() {
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+
+// Love Letter Functions
+function showLoveLetter() {
+  loveLetter.classList.add('show');
+  const paragraphs = document.querySelectorAll('.poetic-text');
   
-
-  
-
-  function openModal() {
-    modal.classList.add('show');
-    try {
-      bgMusic.volume = 0.3;
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        musicToggle.textContent = '🔊';
-      }).catch(e => {
-        console.warn("Autoplay blocked:", e);
-        isPlaying = false;
-        musicToggle.textContent = '🔇';
-      });
-    } catch (e) {
-      console.log("Audio play failed:", e);
-    }
-  }
-
-  function closeModal() {
-    modal.classList.remove('show');
-  }
-
-  function showLoveLetter() {
-    loveLetter.classList.add('show');
-    const paragraphs = document.querySelectorAll('.poetic-text');
-    paragraphs.forEach(p => p.classList.remove('visible'));
-    paragraphs.forEach((p, index) => {
-      setTimeout(() => {
-        p.classList.add('visible');
-      }, index * 300);
-    });
-    showLetterBtn.disabled = true;
-    showLetterBtn.classList.remove('hover:translateY(-2px)', 'hover:shadow-lg');
-    showLetterBtn.textContent = 'Letter Read 💖';
-  }
-
-  function closeLoveLetter() {
-    loveLetter.classList.remove('show');
-  }
-
-  // Music player functionality
-  const musicToggle = document.getElementById('musicToggle');
-  const bgMusic = document.getElementById('bgMusic');
-  const musicPlayer = document.getElementById('musicPlayer');
-  let isPlaying = false;
-
-  // Try to autoplay music (may be blocked by browser)
-  function attemptAutoplay() {
-    const playPromise = bgMusic.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        isPlaying = true;
-        musicToggle.textContent = '🔊';
-      })
-      .catch(error => {
-        isPlaying = false;
-        musicToggle.textContent = '🔇';
-      });
-    }
-  }
-
-  // On page load, try to play music after a short delay
-  setTimeout(attemptAutoplay, 1000);
-
-  // Toggle music play/pause
-  musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-      bgMusic.pause();
-      musicToggle.textContent = '🔇';
-    } else {
-      bgMusic.play();
-      musicToggle.textContent = '🔊';
-    }
-    isPlaying = !isPlaying;
+  // Reset all paragraphs
+  paragraphs.forEach(p => {
+    p.classList.remove('visible');
+    p.style.opacity = '0';
+    p.style.transform = 'translateY(20px)';
   });
+  
+  // Animate each paragraph sequentially
+  paragraphs.forEach((p, index) => {
+    setTimeout(() => {
+      p.classList.add('visible');
+      p.style.opacity = '1';
+      p.style.transform = 'translateY(0)';
+    }, index * 300);
+  });
+}
 
-  // Update music info based on current time
-  setInterval(() => {
-    if (isPlaying) {
-      const minutes = Math.floor(bgMusic.currentTime / 60);
-      const seconds = Math.floor(bgMusic.currentTime % 60).toString().padStart(2, '0');
-      document.querySelector('.music-info').textContent = `Playing: Love Song 💖 (${minutes}:${seconds})`;
-    }
-  }, 1000);
+function closeLoveLetter() {
+  loveLetter.classList.remove('show');
+}
 
-
-
-  // Hati jatuh
+// Falling Hearts Animation
+function createFallingHearts() {
   const heartsContainer = document.getElementById('hearts-container');
   for (let i = 0; i < 30; i++) {
     const heart = document.createElement('div');
@@ -871,8 +825,10 @@
     heart.innerHTML = ["💖", "💗", "💓", "💘", "💝"][Math.floor(Math.random() * 5)];
     heartsContainer.appendChild(heart);
   }
+}
 
-  // Hati melayang
+// Floating Hearts Background
+function createFloatingHearts() {
   const floatingHearts = document.getElementById('floating-hearts');
   for (let i = 0; i < 15; i++) {
     const heart = document.createElement('div');
@@ -885,8 +841,10 @@
     heart.innerHTML = ["💖", "💗", "💓", "💘", "💝"][Math.floor(Math.random() * 5)];
     floatingHearts.appendChild(heart);
   }
+}
 
-  // Quotes acak
+// Random Quotes
+function displayRandomQuote() {
   const quotes = [
     "In your arms, I have found the home my wandering soul always sought.",
     "Your love is the melody that makes my heart sing its sweetest song.",
@@ -899,79 +857,58 @@
     "To the world you may be one person, but to me you are the world.",
     "I would rather share one lifetime with you than face all the ages of this world alone."
   ];
-  document.getElementById("randomQuote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+  randomQuote.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+}
 
-  // Sparkle effect
-  document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-      createSparkles(e.clientX, e.clientY);
-    }
-  });
-
-  function createSparkles(x, y) {
-    for (let i = 0; i < 10; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      sparkle.style.left = x + 'px';
-      sparkle.style.top = y + 'px';
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 20 + Math.random() * 30;
-      sparkle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
-      sparkle.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
-      sparkle.style.width = sparkle.style.height = (5 + Math.random() * 10) + 'px';
-      document.body.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 1500);
-    }
+// Sparkle Effect
+function createSparkles(x, y) {
+  for (let i = 0; i < 10; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 20 + Math.random() * 30;
+    sparkle.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+    sparkle.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+    sparkle.style.width = sparkle.style.height = (5 + Math.random() * 10) + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1500);
   }
+}
 
-  // Music Player draggable
-  let isDragging = false, offsetX, offsetY;
-  musicPlayer.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - musicPlayer.getBoundingClientRect().left;
-    offsetY = e.clientY - musicPlayer.getBoundingClientRect().top;
-    musicPlayer.style.cursor = 'grabbing';
-  });
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    musicPlayer.style.left = `${e.clientX - offsetX}px`;
-    musicPlayer.style.top = `${e.clientY - offsetY}px`;
-  });
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    musicPlayer.style.cursor = 'grab';
-  });
-  musicPlayer.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    const touch = e.touches[0];
-    offsetX = touch.clientX - musicPlayer.getBoundingClientRect().left;
-    offsetY = touch.clientY - musicPlayer.getBoundingClientRect().top;
-    e.preventDefault();
-  });
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    musicPlayer.style.left = `${touch.clientX - offsetX}px`;
-    musicPlayer.style.top = `${touch.clientY - offsetY}px`;
-    e.preventDefault();
-  });
-  document.addEventListener('touchend', () => isDragging = false);
-
-  // Typewriter effect untuk judul
+// Typewriter Effect
+function setupTypewriter() {
   const title = document.querySelector('.typing');
   setTimeout(() => {
     title.style.animation = 'none';
     title.style.borderRight = 'none';
   }, 3000);
+}
 
-  // Optimisasi animasi
-  function optimizeAnimations() {
-    document.querySelectorAll('*').forEach(el => {
-      if (getComputedStyle(el).willChange === 'transform') {
-        el.style.backfaceVisibility = 'hidden';
-        el.style.perspective = '1000px';
-      }
-    });
-  }
-  window.addEventListener('load', optimizeAnimations);
+// Initialize all components when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  createFallingHearts();
+  createFloatingHearts();
+  displayRandomQuote();
+  setupTypewriter();
+  
+  // Click sparkle effect for buttons
+  document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+      createSparkles(e.clientX, e.clientY);
+    }
+  });
+});
+
+// Optimize animations
+function optimizeAnimations() {
+  document.querySelectorAll('*').forEach(el => {
+    if (getComputedStyle(el).willChange === 'transform') {
+      el.style.backfaceVisibility = 'hidden';
+      el.style.perspective = '1000px';
+    }
+  });
+}
+window.addEventListener('load', optimizeAnimations);
 </script>
